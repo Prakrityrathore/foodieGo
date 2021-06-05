@@ -8,7 +8,7 @@ class DishesController < ApplicationController
     end
 
     def create 
-        dish = Dish.new(dish_params)
+        dish = @restaurant.dishes.build(dish_params)
         if dish.save
             render json: {message:"Dish Created Successfully", data: dish}
         else
