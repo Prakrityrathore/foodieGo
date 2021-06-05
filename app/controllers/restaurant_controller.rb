@@ -4,32 +4,30 @@ class RestaurantController < ApplicationController
     def index
         @restaurants = Restaurant.all
         @restaurants = apply_pagination @restaurants
-        render_success data: {
-            restaurants: @restaurant.as_api_response(:base),
-            pagination: pagination(@restaurants)
-        }
+        render json: @restaurants
     end
 
     def show
         @restaurant = Restaurant.find(params[:id])
-        render_success  data:{restaurant: @restaurant.as_api_response(:base) }
+        @dishes = @restaurant.dishes
+        render json: @dishes
     end
 
     def create
         restaurant = Restaurant.new(restaurant_params)
         if restaurant.save
-            render_success message:'Restaurant created successfully',data: {restaurant: restaurant.as_api_response(:base)}
+            render json: {message:'Restaurant created successfully',data: restaurant}
         else
-            render_error message:'Trouble creating new Restaurant', data: {error: restaurant.errors.full_messages}
+            render json:  restaurant.errors.full_messages
         end
     end
 
     def destroy
         restaurant = Restaurant.find(params[:id])
         if restaurant.destroy
-            render_success message: ' Restaurant deleted successfully',data: {restaurant: restaurant.as_api_response(:base)}
+            render json:{message: 'Restaurant deleted successfully',data: restaurant}
         else
-            render_error message: 'Error while deleting', data: {error:restaurant.errors}
+            render json: restaurant.errors.full_messages
         end
     end
 
