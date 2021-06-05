@@ -9,7 +9,6 @@ class RestaurantController < ApplicationController
 
     def show
         @restaurant = Restaurant.find(params[:id])
-        @dishes = @restaurant.dishes
         render json: @dishes
     end
 

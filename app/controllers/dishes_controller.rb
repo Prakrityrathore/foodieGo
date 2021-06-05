@@ -1,9 +1,10 @@
 class DishesController < ApplicationController
-    before_action :set_dish
+    before_action :get_restaurant
+    before_action :set_dish, only: %i[update destroy]
     def index
         #restaurant = Restaurant.find(params[:id])
-        dishes = apply_pagination dishes
-        render json: dishes 
+        @dishes = apply_pagination @restaurant.dishes
+        render json: @dishes 
     end
 
     def create 
@@ -16,26 +17,29 @@ class DishesController < ApplicationController
     end
 
     def update
-        current_dish = Dish.find(params[:id])
-        if current_dish.update_attributes(update_dish_params)
-            render json: {message: 'Dish is updated successfully', data: current_dish}
+        if @dish.update_attributes(update_dish_params)
+            render json: {message: 'Dish is updated successfully', data: @dish}
         else
-            render json: {message: 'Error while updating', errors: current_dish.errors}
+            render json: {message: 'Error while updating', errors: @dish.errors}
         end
     end
 
     def destroy
-        current_dish = Dish.find(params[:id])
-        if current_dish.destroy
-            render json: {message: 'Dish is deleted successfully', data: dish}
+        if @dish.destroy
+            render json: {message: 'Dish is deleted successfully', data: @dish}
         else
-            render json: {message: 'Error while deleting', errors:  current_dish.errors}
+            render json: {message: 'Error while deleting', errors: @dish.errors}
         end
  
     end
+    private
+
+    def get_restaurant
+        @restaurant = Restaurant.find(params[:id])
+    end
 
     def set_dish
-        dish = Dish.find(params[:id])
+        @dish = @restaurant.dishes.find(params[:id])
     end
 
     def dish_params
