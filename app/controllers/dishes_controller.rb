@@ -35,7 +35,7 @@ class DishesController < ApplicationController
     private
 
     def get_restaurant
-        @restaurant = Restaurant.find(params[:id])
+        @restaurant = Restaurant.find(params[:restaurant_id])
     end
 
     def set_dish
