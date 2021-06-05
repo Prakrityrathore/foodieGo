@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  get 'restaurant/:id/dishes' => 'restaurant#dishes', :as => :restaurant_dishes
+  get 'restaurant/:id/dishes' => 'restaurant#index', :as => :restaurant_dishes
 end
