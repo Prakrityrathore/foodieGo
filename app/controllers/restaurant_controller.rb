@@ -3,7 +3,6 @@ class RestaurantController < ApplicationController
 
     def index
         @restaurants = Restaurant.all
-        @restaurants = apply_pagination @restaurants
         render json: @restaurants
     end
 
