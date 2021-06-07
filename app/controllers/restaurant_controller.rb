@@ -2,8 +2,8 @@ class RestaurantController < ApplicationController
 
 
     def index
-        @restaurants = Restaurant.all
-        render json: @restaurants
+        @restaurants = apply_pagination Restaurant.all
+        render json: {data: @restaurants, pagination: pagination(@restaurants)}
     end
 
     def show

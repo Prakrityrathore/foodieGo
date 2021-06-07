@@ -3,8 +3,8 @@ class DishesController < ApplicationController
     before_action :set_dish, only: %i[update destroy]
     def index
         #restaurant = Restaurant.find(params[:id])
-        @dishes = @restaurant.dishes
-        render json: @dishes 
+        @dishes = apply_pagination @restaurant.dishes
+        render json: {data: @dishes, pagination: pagination(@dishes)} 
     end
 
     def create 
