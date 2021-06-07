@@ -14,10 +14,10 @@ ActiveRecord::Schema.define(version: 2021_06_03_162306) do
 
   create_table "dishes", force: :cascade do |t|
     t.integer "restaurant_id"
-    t.string "name"
+    t.string "name", null: false
     t.string "cuisine"
-    t.decimal "price", precision: 5, scale: 2
-    t.float "ratings"
+    t.decimal "price", precision: 5, scale: 2, null: false
+    t.float "ratings", null: false
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -25,13 +25,13 @@ ActiveRecord::Schema.define(version: 2021_06_03_162306) do
   end
 
   create_table "restaurants", force: :cascade do |t|
-    t.string "name"
-    t.text "address"
+    t.string "name", null: false
+    t.text "address", null: false
     t.text "opening_hours"
-    t.string "email"
+    t.string "email", null: false
     t.boolean "accept_reservation", default: true
     t.boolean "home_deliveries", default: true
-    t.integer "phone_number"
+    t.integer "phone_number", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
