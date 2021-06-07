@@ -4,7 +4,11 @@ class DishesController < ApplicationController
     def index
         #restaurant = Restaurant.find(params[:id])
         @dishes = apply_pagination @restaurant.dishes
-        render json: {data: @dishes, pagination: pagination(@dishes)} 
+        render_success data: {
+            dishes: @dishes.as_api_response(:base),
+            pagination: pagination(@dishes)
+        }
+        #render json: {data: @dishes, pagination: pagination(@dishes)} 
     end
 
     def create 

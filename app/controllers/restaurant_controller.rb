@@ -3,7 +3,11 @@ class RestaurantController < ApplicationController
 
     def index
         @restaurants = apply_pagination Restaurant.all
-        render json: {data: @restaurants, pagination: pagination(@restaurants)}
+        render_success data: {
+            restaurants: @restaurants.as_api_response(:base),
+            pagination: pagination(@restaurants)
+        }
+        #render json: {data: @restaurants, pagination: pagination(@restaurants)}
     end
 
     def show
