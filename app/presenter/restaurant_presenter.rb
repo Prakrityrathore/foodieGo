@@ -10,6 +10,7 @@ module RestaurantPresenter
             t.add :opening_hours
             t.add :email
             t.add :accept_reservation 
+            t.add :dishes,template: :base
             t.add :home_deliveries 
             t.add :phone_number
             t.add :created_at
