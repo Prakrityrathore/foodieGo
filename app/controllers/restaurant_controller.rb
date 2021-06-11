@@ -12,7 +12,7 @@ class RestaurantController < ApplicationController
 
     def show
         @restaurant = Restaurant.find(params[:id])
-        render json: @dishes
+        render_success(data: {restaurant: @restaurant.as_api_response(:base)})
     end
 
     def create

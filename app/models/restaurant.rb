@@ -1,4 +1,5 @@
 class Restaurant < ApplicationRecord
+    include RestaurantPresenter
     has_many :dishes, dependent: :destroy
 
     validates :name, :address, :email, :presence => true
