@@ -1,4 +1,4 @@
-module OrderPresenter
+module CustomerPresenter
     extend ActiveSupport::Concern
 
     included do 
@@ -6,10 +6,10 @@ module OrderPresenter
 
         api_accessible :base do |t|
             t.add :name
-            t.add :quantity
-            t.add :price
-            t.add :sum
-            t.add :customer, template: :base
+            t.add :phone_number
+            t.add :delivery_address
+            t.add :payment_method
+            t.add :order, template: :base
             
       
         end

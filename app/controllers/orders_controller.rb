@@ -30,11 +30,12 @@ class OrdersController < ApplicationController
     end
 
     def order_params
-        params.require(:order).permit( 
-                                    dishes: [
+        params.require(:order).permit(:customer_id,
+                                    :sum,
+                                    dishes_attributes: [
                                         :dish_id,
                                         :quantity
-                                        ])
+                                    ])
     end
 
 end
