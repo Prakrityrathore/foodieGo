@@ -12,6 +12,17 @@
 
 ActiveRecord::Schema.define(version: 2021_06_13_174311) do
 
+  create_table "customers", force: :cascade do |t|
+    t.integer "order_id"
+    t.string "name", null: false
+    t.integer "phone_number", null: false
+    t.string "delivery_address", null: false
+    t.string "payment_method"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_customers_on_order_id"
+  end
+
   create_table "dishes", force: :cascade do |t|
     t.integer "restaurant_id"
     t.string "name", null: false
@@ -36,27 +47,40 @@ ActiveRecord::Schema.define(version: 2021_06_13_174311) do
     t.index ["order_id"], name: "index_order_items_on_order_id"
   end
 
-  create_table "orders", force: :cascade do |t|
-    t.integer "restaurant_id"
-    t.string "delivery_address", null: false
-    t.integer "phone_number", null: false
+  create_table "order_placments", force: :cascade do |t|
+    t.integer "order_id"
+    t.integer "dish_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["dish_id"], name: "index_order_placments_on_dish_id"
+    t.index ["order_id"], name: "index_order_placments_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "restaurant_id"
+    t.integer "dish_id"
+    t.decimal "sum"
+    t.integer "quantity", default: 1
+    t.string "payment_method"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dish_id"], name: "index_orders_on_dish_id"
     t.index ["restaurant_id"], name: "index_orders_on_restaurant_id"
   end
 
   create_table "restaurants", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "address", null: false
+    t.string "name"
+    t.text "address"
     t.text "opening_hours"
-    t.string "email", null: false
+    t.string "email"
     t.boolean "accept_reservation", default: true
     t.boolean "home_deliveries", default: true
-    t.integer "phone_number", null: false
+    t.integer "phone_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "customers", "orders"
   add_foreign_key "dishes", "restaurants"
   add_foreign_key "order_items", "dishes"
   add_foreign_key "order_items", "orders"

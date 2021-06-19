@@ -35,6 +35,8 @@ class OrdersController < ApplicationController
                                       order_item_attributes: [
                                         :dish_id,
                                         :quantity,
+                                        :total_price,
+                                        :payment_method
                                         ])
     end
 
