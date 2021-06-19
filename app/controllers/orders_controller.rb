@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
     end
 
     def show
-        @order = Order.find(params[:id])
+        @order = @restaurant.orders.find(params[:id])
         render_success(data: {order: @order.as_api_response(:base)})
     end
 
@@ -32,7 +32,7 @@ class OrdersController < ApplicationController
     def order_params
         params.require(:order).permit(:delivery_address,
                                       :phone_number,
-                                      order_item_attributes: [
+                                      order_items_attributes: [
                                         :dish_id,
                                         :quantity,
                                         :total_price,
